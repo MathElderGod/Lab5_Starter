@@ -3,7 +3,7 @@
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  // TODO
+  // Done
   const hornType = document.getElementById("horn-select");
   const hornImgType = document.querySelector("[alt='No image selected']");
   const currentVolume = document.getElementById("volume");
@@ -21,8 +21,6 @@ function init() {
   hornType.addEventListener("change", changeHornContent); // horn type
   currentVolume.addEventListener("input", changeVolumContent); // volume
   playCurrentAudio.addEventListener("click", playSound); // button
-
-  console.log(playCurrentAudio);
 
   function changeHornContent() {
     audioPlayCanBeDone = true;
