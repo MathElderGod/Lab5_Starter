@@ -12,69 +12,58 @@ function init() {
   const currentAudio = document.getElementsByClassName("hidden");
   const playCurrentAudio = document.querySelector("button");
 
-  let audioFile;
+  const audioFile = currentAudio[0];
 
-  hornType.addEventListener("change", changeHornContent);
-  currentVolume.addEventListener("input", changeVolumContent);
-  playCurrentAudio.addEventListener("click", playSound);
+  const jsConfetti = new JSConfetti();
+
+  let audioPlayCanBeDone = false;
+
+  hornType.addEventListener("change", changeHornContent); // horn type
+  currentVolume.addEventListener("input", changeVolumContent); // volume
+  playCurrentAudio.addEventListener("click", playSound); // button
 
   console.log(playCurrentAudio);
 
   function changeHornContent() {
+    audioPlayCanBeDone = true;
     switch (hornType.value) {
       case "air-horn":
         hornType.value = "air-horn";
         hornImgType.src = "assets/images/air-horn.svg"
-        currentAudio.src = "assets/audio/air-horn.mp3";
-        audioFile = new Audio(currentAudio.src);
-        console.log(currentAudio);
-        //console.log(hornType.value);
+        audioFile.src = "assets/audio/air-horn.mp3";
         break;
       case "car-horn":
         hornType.value = "car-horn";
         hornImgType.src = "assets/images/car-horn.svg"
-        currentAudio.src = "assets/audio/car-horn.mp3";
-        audioFile = new Audio(currentAudio.src);
-        console.log(currentAudio);
-        //console.log(hornType.value);
+        audioFile.src = "assets/audio/car-horn.mp3";
         break;
       case "party-horn":
         hornType.value = "party-horn";
         hornImgType.src = "assets/images/party-horn.svg"
-        currentAudio.src = "assets/audio/party-horn.mp3";
-        audioFile = new Audio(currentAudio.src);
-        console.log(currentAudio);
-        //console.log(hornType.value);
+        audioFile.src = "assets/audio/party-horn.mp3";
         break;
     }
   }
 
   function changeVolumContent() {
-
     if (currentVolume.value == 0) {
       currentVolumeImg.src = "assets/icons/volume-level-0.svg";
-      audioFile.volume = currentVolume.value / 100.00
-      console.log(audioFile.volume);
     } else if (currentVolume.value >= 1 && currentVolume.value < 33) {
       currentVolumeImg.src = "assets/icons/volume-level-1.svg";
-      audioFile.volume = currentVolume.value / 100.00
-      console.log(audioFile.volume);
     } else if (currentVolume.value >= 33 && currentVolume.value < 67) {
       currentVolumeImg.src = "assets/icons/volume-level-2.svg";
-      audioFile.volume = currentVolume.value / 100.00
-      console.log(audioFile.volume);
     } else if (currentVolume.value >= 67) {
       currentVolumeImg.src = "assets/icons/volume-level-3.svg";
-      audioFile.volume = currentVolume.value / 100.00
-      console.log(audioFile.volume);
     }
+    audioFile.volume = currentVolume.value / 100.00
   }
 
   function playSound() {
-    console.log(currentAudio);
-    if (audioFile == undefined) {
-      return;
+    if(hornType.value == "party-horn"){
+      jsConfetti.addConfetti();
     }
-    audioFile.play();
+    if(audioPlayCanBeDone){
+      audioFile.play();
+    }
   }
 }
